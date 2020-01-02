@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script crossorigin src= "https://unpkg.com/babel-standalone@6/babel.min.js"> </script>
+    <title></title>
+  </head>
+  <body>
+    <div id = "root">
+
+    </div>
+
+    <script type="text/babel">
+      var change = '';
+      class Coment extends React.Component{
+        constructor(props){
+          super(props);
+          this.state = {
+            value : '',
+            count : 0,
+          };
+        }
+
+        submit = (event) => {
+          event.preventDefault();
+          var value = this.state.value + '\n';
+          this.setState({
+            value : '',
+            count : this.state.count + 1,
+          });
+          change += value;
+        }
+
+        render(){
+          return(
+          <React.Fragment>
+            <div> 댓글 달기 </div>
+            <form onSubmit = {this.submit}>
+              <input type="text" value={this.state.value} onChange = {(e) => {this.setState({value : e.target.value})}}/>
+              <button>등록하기</button>
+            </form>
+            <div>
+             총 {this.state.count} 개의 댓글이 달렸네용~?
+            </div>
+
+            <div>
+              <br />
+              {
+                change.split('\n').map(line => {
+                return (<span>{line}<br/></span>);
+                })
+              }
+            </div>
+
+          </React.Fragment>
+        );
+        }
+      }
+    </script>
+
+    <script type="text/babel">
+      ReactDOM.render(<Coment />,document.getElementById('root'));
+    </script>
+  </body>
+</html>
